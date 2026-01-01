@@ -37,7 +37,7 @@ We focus on a complete **MLOps lifecycle**:
 
 ### 1. Clone & Setup
 ```bash
-git clone https://github.com/yourusername/spoken-digit-recognition-afaan-oromoo.git
+git clone https://github.com/abdulmunimjemal/spoken-digit-recognition-afaan-oromoo.git
 cd spoken-digit-recognition-afaan-oromoo
 python -m venv venv
 source venv/bin/activate
