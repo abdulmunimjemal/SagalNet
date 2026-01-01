@@ -13,7 +13,9 @@ from src.data.dataset import SpokenDigitDataset
 from src.models.model import SimpleCNN, DeeperCNN
 from sklearn.metrics import precision_score, recall_score, f1_score
 import mlflow
+import mlflow
 import mlflow.pytorch
+from mlflow.models.signature import infer_signature
 import numpy as np
 
 def train(epochs=30, batch_size=32, learning_rate=0.001, data_dir='data/processed', model_type='simple', model_save_path='models/best_model.pth', time_mask=30, freq_mask=15):
@@ -145,7 +147,17 @@ def train(epochs=30, batch_size=32, learning_rate=0.001, data_dir='data/processe
                 print(f"Saved best model with F1: {best_f1:.4f}")
                 
                 # Log model to MLflow
-                mlflow.pytorch.log_model(model, "model")
+                # Log model to MLflow
+                # Create input example and signature
+                example_input = images[:1].cpu().numpy()
+                signature = infer_signature(example_input, model(images[:1]).detach().cpu().numpy())
+                
+                mlflow.pytorch.log_model(
+                    model, 
+                    "model", 
+                    signature=signature, 
+                    input_example=example_input
+                )
         
         print("Training finished.")
 
