@@ -1,6 +1,9 @@
 __pycache__/
 *.DS_Store
 .ipynb_checkpoints/
-data/
+data/raw/
+data/processed/
+data/interim/
+data/external/
 models/*.pt
 venv/
