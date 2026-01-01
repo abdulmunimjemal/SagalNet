@@ -31,7 +31,7 @@ The directory name corresponds to the spoken digit.
 
 | Label | Digit | Afaan Oromoo Word |
 |-------|-------|-------------------|
-| 0     | 0     | Zero              |
+| 0     | 0     | Duwwaa            |
 | 1     | 1     | Tokko             |
 | 2     | 2     | Lama              |
 | 3     | 3     | Sadii             |
