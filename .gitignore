@@ -11,3 +11,7 @@ mlruns/
 mlartifacts/
 models/*.pth
 *.m4a
+
+# Personal / Docs
+docs/walkthrough.md
+notebooks/04_comprehensive_learning_guide.ipynb

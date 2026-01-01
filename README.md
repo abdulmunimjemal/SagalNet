@@ -10,7 +10,7 @@
 
 **Real-time Spoken Digit Recognition using Deep Convolutional Neural Networks (CNNs).**
 
-[📚 Read the Docs](docs/index.md) | [🚀 Quick Start](#quick-start) | [📊 Experiments](docs/04_experiments_and_results.md)
+[📚 Read the Docs](docs/README.md) | [🚀 Quick Start](#quick-start) | [📊 Experiments](docs/04_experiments_and_results.md)
 
 </div>
 

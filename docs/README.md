@@ -33,5 +33,5 @@ Welcome to the comprehensive documentation for the **Afaan Oromoo Spoken Digit R
 ---
 
 ## 🔗 Quick Links
-*   [🏠 Home (README)](../README.md)
+*   [🏠 Home (Repository Root)](../README.md)
 *   [📓 Learning Notebook](../notebooks/04_comprehensive_learning_guide.ipynb)
