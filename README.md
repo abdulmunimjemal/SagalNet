@@ -1,4 +1,4 @@
-# 🎙️ Afaan Oromoo Spoken Digit Recognition
+# 🎙️ SagalNet: Afaan Oromoo Spoken Digit Recognition
 
 <div align="center">
 
@@ -18,7 +18,7 @@
 
 ## 📖 Overview
 
-This project implements a robust machine learning pipeline to recognize spoken digits (0-9) in **Afaan Oromoo**. It leverages modern deep learning techniques, including **Mel-Spectrograms** for feature extraction and a custom **DeeperCNN** architecture for high-accuracy classification.
+**SagalNet** implements a robust machine learning pipeline to recognize spoken digits (0-9) in **Afaan Oromoo**. It leverages modern deep learning techniques, including **Mel-Spectrograms** for feature extraction and a custom **DeeperCNN** architecture for high-accuracy classification.
 
 We focus on a complete **MLOps lifecycle**:
 -   **Modular Codebase**: Clean separation of Data (`src/data`), Modeling (`src/models`), and UI.
@@ -37,8 +37,8 @@ We focus on a complete **MLOps lifecycle**:
 
 ### 1. Clone & Setup
 ```bash
-git clone https://github.com/abdulmunimjemal/spoken-digit-recognition-afaan-oromoo.git
-cd spoken-digit-recognition-afaan-oromoo
+git clone https://github.com/abdulmunimjemal/SagalNet.git
+cd SagalNet
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt

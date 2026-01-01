@@ -1,4 +1,4 @@
-# 📚 Documentation Hub
+# 📚 SagalNet Documentation Hub
 
 Welcome to the comprehensive documentation for the **Afaan Oromoo Spoken Digit Recognition** project. This documentation is designed to guide you through every aspect of the system, from high-level architecture to low-level code implementation.
 

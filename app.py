@@ -7,9 +7,9 @@ import numpy as np
 from src.models.predict_model import predict
 
 # Page Config
-st.set_page_config(page_title="Spoken Digit Recognition", page_icon="🎙️")
+st.set_page_config(page_title="SagalNet", page_icon="🎙️")
 
-st.title("🎙️ Afaan Oromoo Spoken Digit Recognizer")
+st.title("🎙️ SagalNet: Afaan Oromoo Digit Recognizer")
 st.write("Upload an audio file or record your voice to predict the Spoken Digit (0-9).")
 
 # Sidebar for Model Selection
