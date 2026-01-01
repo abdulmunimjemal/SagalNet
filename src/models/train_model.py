@@ -2,7 +2,8 @@ import os
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from torch.utils.data import DataLoader, random_split
+from torch.utils.data import DataLoader
+from sklearn.model_selection import train_test_split
 from tqdm import tqdm
 import sys
 
@@ -11,24 +12,37 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
 from src.data.dataset import SpokenDigitDataset
 from src.models.model import SimpleCNN
 
-def train(epochs=20, batch_size=32, learning_rate=0.001, data_dir='data/processed', model_save_path='models/best_model.pth'):
+def train(epochs=30, batch_size=32, learning_rate=0.001, data_dir='data/processed', model_save_path='models/best_model.pth'):
     
     # Device configuration
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    if torch.cuda.is_available():
+        device = torch.device('cuda')
+    elif torch.backends.mps.is_available():
+        device = torch.device('mps')
+    else:
+        device = torch.device('cpu')
     print(f"Using device: {device}")
     
-    # Load Data
-    dataset = SpokenDigitDataset(data_dir)
-    print(f"Total samples: {len(dataset)}")
+    # Load All Data Paths first
+    # We use a temporary dataset instance just to crawl the directory
+    temp_dataset = SpokenDigitDataset(data_dir)
+    all_files = temp_dataset.file_list
+    print(f"Total samples found: {len(all_files)}")
     
-    if len(dataset) == 0:
+    if len(all_files) == 0:
         print("No data found! Check data/processed/")
         return
     
-    # Split Data
-    train_size = int(0.8 * len(dataset))
-    test_size = len(dataset) - train_size
-    train_dataset, test_dataset = random_split(dataset, [train_size, test_size])
+    # Split files into Train and Test
+    # This allows us to apply augmentation ONLY on train_files
+    train_files, test_files = train_test_split(all_files, test_size=0.2, random_state=42, stratify=[y for x, y in all_files])
+    
+    # Create Datasets
+    train_dataset = SpokenDigitDataset(file_list=train_files, train=True)
+    test_dataset = SpokenDigitDataset(file_list=test_files, train=False)
+    
+    print(f"Training samples: {len(train_dataset)}")
+    print(f"Test samples: {len(test_dataset)}")
     
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
     test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
@@ -39,6 +53,9 @@ def train(epochs=20, batch_size=32, learning_rate=0.001, data_dir='data/processe
     # Loss and Optimizer
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=learning_rate)
+    
+    # Learning Rate Scheduler
+    scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='max', factor=0.5, patience=3)
     
     best_acc = 0.0
     
@@ -86,6 +103,9 @@ def train(epochs=20, batch_size=32, learning_rate=0.001, data_dir='data/processe
         
         val_acc = 100 * val_correct / val_total
         
+        # Step Scheduler
+        scheduler.step(val_acc)
+        
         print(f"Epoch [{epoch+1}/{epochs}] - Loss: {train_loss/len(train_loader):.4f} - Train Acc: {train_acc:.2f}% - Val Acc: {val_acc:.2f}%")
         
         if val_acc > best_acc:
@@ -98,7 +118,7 @@ def train(epochs=20, batch_size=32, learning_rate=0.001, data_dir='data/processe
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()
-    parser.add_argument('--epochs', type=int, default=20)
+    parser.add_argument('--epochs', type=int, default=30)
     parser.add_argument('--batch_size', type=int, default=32)
     parser.add_argument('--lr', type=float, default=0.001)
     parser.add_argument('--data_dir', type=str, default='data/processed')
