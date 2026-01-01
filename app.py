@@ -71,5 +71,4 @@ if audio_file is not None:
             else:
                 st.error("Prediction failed. Check the logs.")
 
-st.markdown("---")
-st.markdown("Optimization & Training by [Your Name]")
+
