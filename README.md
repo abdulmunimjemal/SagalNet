@@ -100,5 +100,5 @@ graph LR
 ---
 
 <div align="center">
-    Created with ❤️ for Afaan Oromoo Tech.
+    Created with ❤️
 </div>
