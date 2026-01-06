@@ -15,3 +15,5 @@ models/*.pth
 # Personal / Docs
 docs/walkthrough.md
 notebooks/04_comprehensive_learning_guide.ipynb
+
+/.venv
